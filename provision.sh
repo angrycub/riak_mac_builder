@@ -79,11 +79,10 @@ print_time
 echo "* Cloning Riak Repo"
 git clone https://github.com/basho/riak
 cd riak
-git checkout riak-2.2.0
+git checkout riak-2.0.8rc3
 
 print_time
 
-exit 0 
 echo "* Building Riak Packages"
 make package
 

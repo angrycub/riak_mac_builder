@@ -29,12 +29,15 @@ echo " - installing kerl"
 curl -s -O https://raw.githubusercontent.com/kerl/kerl/master/kerl
 chmod +x kerl
 echo " - building .kerlrc"
-echo 'export LDFLAGS="-L/usr/local/opt/unixodbc/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/libxslt/lib" 
+echo 'THIS KERLRC EXPECTS A 
+
+export LDFLAGS="-L/usr/local/opt/unixodbc/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/libxslt/lib" 
 export CPPFLAGS="-I/usr/local/opt/unixodbc/include -I/usr/local/opt/openssl/include" 
 export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/libxslt/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig"
 
 KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
-                        --enable-kernel-poll --enable-darwin-64bit"
+                        --enable-kernel-poll --enable-darwin-64bit
+                        --disable-dynamic-ssl-lib"
 ' >> .kerlrc
 
 echo "* Configuring git for HTTPS"

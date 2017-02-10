@@ -35,3 +35,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+!/keys/
+/keys/*
+!/keys/README.md

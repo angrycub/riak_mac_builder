@@ -29,7 +29,10 @@ echo " - installing kerl"
 curl -s -O https://raw.githubusercontent.com/kerl/kerl/master/kerl
 chmod +x kerl
 echo " - building .kerlrc"
-echo 'THIS KERLRC EXPECTS A 
+echo '## THIS KERLRC EXPECTS HOMEBREW DEPENDENCIES...
+## They are installed with the following commands: 
+##   brew cask install java
+##   brew install openssl autoconf unixodbc wxmac fop libxslt
 
 export LDFLAGS="-L/usr/local/opt/unixodbc/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/libxslt/lib" 
 export CPPFLAGS="-I/usr/local/opt/unixodbc/include -I/usr/local/opt/openssl/include" 

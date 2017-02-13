@@ -1,11 +1,13 @@
 #! /bin/bash
+RIAK_VERSION=2.0.8rc4
+
 
 print_time () {
 	echo "==========  $(date)  =========="
 }
 
-print_time 
 
+print_time 
 echo "* Modify Taskgated configuration"
 # For some reason the `git` tests seriously irritate taskgated and
 # will cause the git build to take > 20 minutes. Add `-p` option
@@ -22,8 +24,8 @@ sudo mv com.apple.taskgated.plist /System/Library/LaunchDaemons/com.apple.taskga
 echo " - restarting taskgated"
 sudo launchctl load /System/Library/LaunchDaemons/com.apple.taskgated.plist
 
-print_time
 
+print_time
 echo "* Kerl"
 echo " - installing kerl"
 curl -s -O https://raw.githubusercontent.com/kerl/kerl/master/kerl
@@ -43,17 +45,20 @@ KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
                         --disable-dynamic-ssl-lib"
 ' >> .kerlrc
 
-echo "* Configuring git for HTTPS"
-git config --global url."https://github.com/".insteadOf git@github.com:
-git config --global url."https://".insteadOf git://
+# echo "* Configuring git for HTTPS"
+# git config --global url."https://github.com/".insteadOf git@github.com:
+# git config --global url."https://".insteadOf git://
+
+echo "* Importing SSH keys and registering"
+cp /vagrant/keys/* ~/.ssh
+chmod 600 ~/.ssh/*
+for I in *; do ssh-add ${I}; done
 
 print_time
-
 echo "* Install HomeBrew"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
 
 print_time
-
 echo "* Brew in dependencies"
 echo " - Cask dependencies"
 brew cask install java
@@ -79,14 +84,4 @@ echo " - adding to .profile"
 echo ". /Users/vagrant/erlang/R16B02-basho10/activate" > .profile
 print_time
 
-echo "* Cloning Riak Repo"
-git clone https://github.com/basho/riak
-cd riak
-git checkout riak-2.0.8rc3
-
-print_time
-
-echo "* Building Riak Packages"
-make package
-
-print_time
+/vagrant/build_riak.sh

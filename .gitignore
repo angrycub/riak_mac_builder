@@ -38,3 +38,7 @@ Temporary Items
 !/keys/
 /keys/*
 !/keys/README.md
+
+!/packages/
+/packages/*
+!/packages/README.md

@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "test", autostart: false do |test|
-    test.vm.provision "riak", type: "shell", path: "provision-test.sh", privileged: false
+    test.vm.provision "riak", type: "shell", path: "provision-test.sh", privileged: true
     test.vm.network "private_network", ip: "192.168.199.3"
   end
 end

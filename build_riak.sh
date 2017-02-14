@@ -1,21 +1,11 @@
 #! /bin/bash
-export RIAK_VERSION=2.0.8rc4
+export RIAK_VERSION=2.0.8rc5
 
 
 print_time () {
 	echo "==========  $(date)  =========="
 }
 
-echo "* Cloning Riak Repo"
-git clone https://github.com/basho/riak
-cd riak
-git checkout riak-${RIAK_VERSION}
-print_time
-
-echo "* Building Riak Packages"
-make package
-cp package/packages/* /vagrant/packages
-print_time
 
 echo "* Cloning Riak EE Repo"
 cd ~
@@ -25,6 +15,17 @@ git checkout riak_ee-${RIAK_VERSION}
 print_time
 
 echo "* Building Riak EE Packages"
+make package
+cp package/packages/* /vagrant/packages
+print_time
+
+echo "* Cloning Riak Repo"
+git clone https://github.com/basho/riak
+cd riak
+git checkout riak-${RIAK_VERSION}
+print_time
+
+echo "* Building Riak Packages"
 make package
 cp package/packages/* /vagrant/packages
 print_time

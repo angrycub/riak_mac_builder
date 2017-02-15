@@ -1,11 +1,7 @@
 #! /bin/bash
-RIAK_VERSION=2.0.8rc4
-
-
 print_time () {
 	echo "==========  $(date)  =========="
 }
-
 
 print_time 
 echo "* Modify Taskgated configuration"
@@ -67,21 +63,26 @@ echo " - plain brew formulae"
 brew install openssl autoconf unixodbc wxmac fop libxslt
 
 print_time
+echo "* Making OpenSSL less stank"
+cd /usr/local/opt/openssl/lib
+for I in *.dylib; do mv $I $I.disabled; done
+cd -
 
+print_time
 echo "* Basho OTP R16B02-basho10"
 echo " **Note**: This process will take a long time and provide almost no feedback."
 echo 
 echo " - Building R16B02-basho10"
 ./kerl build git git://github.com/basho/otp.git OTP_R16B02_basho10 R16B02-basho10
 # **Optional**: To monitor the build process, you can open another session to the VM and run the following: `tail -f /Users/vagrant/.kerl/builds/R16B02-basho10/otp_build_git.log`
-print_time
 
+print_time
 echo " - Installing R16B02-basho10"
 ./kerl install R16B02-basho10 ~/erlang/R16B02-basho10
 echo " - Activating R16B02-basho10"
 . /Users/vagrant/erlang/R16B02-basho10/activate
 echo " - adding to .profile"
 echo ". /Users/vagrant/erlang/R16B02-basho10/activate" > .profile
-print_time
 
+print_time
 /vagrant/build_riak.sh

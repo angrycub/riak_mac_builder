@@ -1,5 +1,5 @@
 #! /bin/bash
-export RIAK_VERSION=2.0.8rc5
+export RIAK_VERSION=2.0.8
 
 
 print_time () {

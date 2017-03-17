@@ -42,3 +42,7 @@ Temporary Items
 !/packages/
 /packages/*
 !/packages/README.md
+
+!/ssl/
+/ssl/*
+!/ssl/README.md

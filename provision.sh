@@ -60,7 +60,8 @@ echo " - Cask dependencies"
 brew cask install java
 echo " - plain brew formulae"
 # brew install git
-brew install openssl autoconf unixodbc wxmac fop libxslt
+brew install openssl autoconf unixodbc  fop libxslt
+brew install wxmac 
 
 print_time
 echo "* Making OpenSSL less stank"

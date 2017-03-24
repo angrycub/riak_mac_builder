@@ -45,11 +45,6 @@ KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
 # git config --global url."https://github.com/".insteadOf git@github.com:
 # git config --global url."https://".insteadOf git://
 
-echo "* Importing SSH keys and registering"
-cp /vagrant/keys/* ~/.ssh
-chmod 600 ~/.ssh/*
-for I in *; do ssh-add ${I}; done
-
 print_time
 echo "* Install HomeBrew"
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
@@ -61,7 +56,13 @@ brew cask install java
 echo " - plain brew formulae"
 # brew install git
 brew install openssl autoconf unixodbc  fop libxslt
-brew install wxmac 
+brew install wxmac --with-static --disable-shared
+
+echo "* Hiding all Dylibs in the brew output"
+for FN in `find /usr/local/Cellar/* -name *.dylib`
+do
+	mv $FN $FN.disabled
+done
 
 print_time
 echo "* Making OpenSSL less stank"
@@ -86,4 +87,4 @@ echo " - adding to .profile"
 echo ". /Users/vagrant/erlang/R16B02-basho10/activate" > .profile
 
 print_time
-/vagrant/build_riak.sh
+# /vagrant/build_riak.sh

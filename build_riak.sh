@@ -1,5 +1,5 @@
 #! /bin/bash
-export RIAK_VERSION=2.2.2
+export RIAK_VERSION=2.2.3
 
 # Added this hack to get around some weirdness with fetching over
 # https on my builder instance
